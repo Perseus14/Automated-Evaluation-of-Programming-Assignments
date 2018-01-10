@@ -1,0 +1,9 @@
+main() <void main () at examples/nestedfuncall.c:21>:
+    first() <void first () at examples/nestedfuncall.c:14>:
+        second() <void second () at examples/nestedfuncall.c:8>:
+            third() <void third () at examples/nestedfuncall.c:3>
+            printf()
+        third() <void third () at examples/nestedfuncall.c:3>
+        printf()
+    printf()
+    scanf()

@@ -1,0 +1,44 @@
+digraph G {
+  rankdir=TB;
+  node [style="filled", ];
+  2 [label="Decl score", fillcolor="#FFEFD5", shape=box, ];
+  3 [label="Decl max_s", fillcolor="#FFEFD5", shape=box, ];
+  4 [label="Decl name", fillcolor="#FFEFD5", shape=box, ];
+  5 [label="Decl max_name", fillcolor="#FFEFD5", shape=box, ];
+  6 [label="Decl i", fillcolor="#FFEFD5", shape=box, ];
+  7 [label="Decl n", fillcolor="#FFEFD5", shape=box, ];
+  8 [label="Decl __retres", fillcolor="#FFEFD5", shape=box, ];
+  9 [label="max_s = 0;", fillcolor="#CCCCCC", shape=box, ];
+  11 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  12 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  13 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  14 [label="i = 0;", fillcolor="#CCCCCC", shape=box, ];
+  15 [label="while", fillcolor="#CCCCCC", shape=doublecircle, ];
+  16 [label="i < n", fillcolor="#CCCCCC", shape=diamond, ];
+  17 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  18 [label="max_s < score", fillcolor="#CCCCCC", shape=diamond, ];
+  19 [label="break;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  20 [label="return __retres;", fillcolor="#CCCCCC", shape=box, ];
+  21 [label="OutRet", fillcolor="#90EE90", shape=box, ];
+  22 [label="In(ANYTHING(origin:Unknown))", fillcolor="#6495ED", shape=box, ];
+  
+  subgraph cluster_Call2 { label="Call2 : scanf(\"%d\",& n);";
+                           fillcolor="#B38B4D"; style="filled"; 13;12;11;
+     };
+  
+  edge [dir=back, ];
+  3 -> 9 [color="#000000", style="dotted", ];
+  7 -> 12 [color="#0000FF", ];
+  9 -> 13 [color="#0000FF", ];
+  11 -> 13 [color="#0000FF", ];
+  22 -> 13 [color="#0000FF", ];
+  6 -> 14 [color="#000000", style="dotted", ];
+  6 -> 16 [color="#0000FF", ];
+  7 -> 16 [color="#0000FF", ];
+  14 -> 16 [color="#0000FF", ];
+  2 -> 18 [color="#0000FF", ];
+  3 -> 18 [color="#0000FF", ];
+  17 -> 18 [color="#000000", arrowtail=odot, ];
+  8 -> 20 [color="#0000FF", ];
+  
+  }

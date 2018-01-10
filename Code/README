@@ -1,0 +1,11 @@
+Run python run.py with a Contest ID﻿
+then run make similarity followed by make cluster then make marking
+
+eg:
+
+python get_cfiles.py <ID>      # Creates a c_file_list for both correct and incorrect programs
+make similarity		  # Creates a similarity measure file
+make cluster		  # Creates clusters of programs	
+make marking		  # - Creates similarity measure of incorrect vs all correct soln. 
+						- Cluster to nearest program with highest 							similarity measure. 
+					    - Grades the solution based on formula #TODO

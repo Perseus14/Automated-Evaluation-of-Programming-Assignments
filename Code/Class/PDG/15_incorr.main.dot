@@ -1,0 +1,86 @@
+digraph G {
+  rankdir=TB;
+  node [style="filled", ];
+  32 [label="break;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  33 [label="while", fillcolor="#CCCCCC", shape=doublecircle, ];
+  34 [label="personpt != (void *)0", fillcolor="#CCCCCC", shape=diamond, ];
+  35 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  36 [label="score_max <= (personpt->last)->score_inround",
+      fillcolor="#CCCCCC", shape=diamond, ];
+  37 [label="break;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  38 [label="while", fillcolor="#CCCCCC", shape=doublecircle, ];
+  6 [label="Decl number", fillcolor="#FFEFD5", shape=box, ];
+  39 [label="personpt != (void *)0", fillcolor="#CCCCCC", shape=diamond, ];
+  7 [label="Decl total", fillcolor="#FFEFD5", shape=box, ];
+  40 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  8 [label="Decl temp_name", fillcolor="#FFEFD5", shape=box, ];
+  41 [label="tmp_0", fillcolor="#CCCCCC", shape=diamond, ];
+  9 [label="Decl tmp", fillcolor="#FFEFD5", shape=box, ];
+  42 [label="personpt->score_first < number", fillcolor="#CCCCCC",
+      shape=diamond, ];
+  10 [label="Decl score_inc", fillcolor="#FFEFD5", shape=box, ];
+  43 [label="break;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  11 [label="Decl score_max", fillcolor="#FFEFD5", shape=box, ];
+  44 [label="return __retres;", fillcolor="#CCCCCC", shape=box, ];
+  12 [label="Decl personpt", fillcolor="#FFEFD5", shape=box, ];
+  45 [label="OutRet", fillcolor="#90EE90", shape=box, ];
+  13 [label="Decl startpt", fillcolor="#FFEFD5", shape=box, ];
+  46 [label="In(ANYTHING(origin:Unknown))", fillcolor="#6495ED", shape=box, ];
+  14 [label="Decl tmp_0", fillcolor="#FFEFD5", shape=box, ];
+  15 [label="Decl __retres", fillcolor="#FFEFD5", shape=box, ];
+  17 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  18 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  19 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  20 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  22 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  23 [label="OutRet", fillcolor="#FFCA6E", shape=box, ];
+  24 [label="temp_name = (char *)tmp;", fillcolor="#CCCCCC", shape=box, ];
+  25 [label="score_max = 0;", fillcolor="#CCCCCC", shape=box, ];
+  26 [label="startpt = (person *)((void *)0);", fillcolor="#CCCCCC",
+      shape=box, ];
+  27 [label="number = 1;", fillcolor="#CCCCCC", shape=box, ];
+  28 [label="while", fillcolor="#CCCCCC", shape=doublecircle, ];
+  29 [label="number <= total", fillcolor="#CCCCCC", shape=diamond, ];
+  30 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  31 [label="number == 1", fillcolor="#CCCCCC", shape=diamond, ];
+  
+  subgraph cluster_Call1 { label="Call1 : scanf(\"%d\",& total);";
+                           fillcolor="#B38B4D"; style="filled"; 19;18;17;
+     };
+  subgraph cluster_Call3 { label="Call3 : tmp = malloc((unsigned int)32 * sizeof(char));";
+                           fillcolor="#B38B4D"; style="filled"; 23;22;
+     };
+  
+  edge [dir=back, ];
+  12 -> 34 [color="#0000FF", ];
+  11 -> 36 [color="#0000FF", ];
+  12 -> 36 [color="#0000FF", ];
+  35 -> 36 [color="#000000", arrowtail=odot, ];
+  12 -> 39 [color="#0000FF", ];
+  14 -> 41 [color="#0000FF", ];
+  40 -> 41 [color="#000000", arrowtail=odot, ];
+  6 -> 42 [color="#0000FF", ];
+  12 -> 42 [color="#0000FF", ];
+  40 -> 42 [color="#000000", arrowtail=odot, ];
+  15 -> 44 [color="#0000FF", ];
+  7 -> 18 [color="#0000FF", ];
+  17 -> 19 [color="#0000FF", ];
+  46 -> 19 [color="#0000FF", ];
+  20 -> 22 [color="#000000", arrowtail=odot, ];
+  9 -> 23 [color="#000000", style="dotted", ];
+  20 -> 23 [color="#000000", arrowtail=odot, ];
+  22 -> 23 [color="#0000FF", ];
+  8 -> 24 [color="#000000", style="dotted", ];
+  9 -> 24 [color="#0000FF", ];
+  20 -> 24 [color="#000000", arrowtail=odot, ];
+  23 -> 24 [color="#0000FF", ];
+  11 -> 25 [color="#000000", style="dotted", ];
+  13 -> 26 [color="#000000", style="dotted", ];
+  6 -> 27 [color="#000000", style="dotted", ];
+  6 -> 29 [color="#0000FF", ];
+  7 -> 29 [color="#0000FF", ];
+  27 -> 29 [color="#0000FF", ];
+  6 -> 31 [color="#0000FF", ];
+  30 -> 31 [color="#000000", arrowtail=odot, ];
+  
+  }

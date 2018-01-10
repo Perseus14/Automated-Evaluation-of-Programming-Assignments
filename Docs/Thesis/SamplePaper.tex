@@ -1,0 +1,94 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{standalone}
+%\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\usepackage{color}
+\usepackage{xcolor} %for more colours to use in hyperref
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{enumerate}
+\graphicspath{{Images/}}
+\definecolor{forestgreen}{rgb}{0.0, 0.5, 0.0}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linkcolor=forestgreen,
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+    }
+\usepackage{biblatex}
+
+\addbibresource{ref.bib}
+
+    
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}    
+
+\title{Automated Evaluation of Programming Assignments \\ \vspace{0.5mm} \large\textit{Report}}
+\author{Rishabh Manoj}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\section{Introduction}
+
+The assessment of programming assignments places significant demands on the instructor’s time and other resources. This demand has led to the creation of automatic evaluation systems. Students are given programming assignments which are assessed using automatic program evaluation systems. These systems provide a possibility for the student to submit a solution, test it in some way and receive feedback. Such systems could also provide feedback for the teachers and evaluators.
+
+One naive method which is commonly used is to manually create a set of test-cases that can be used to assess the solutions. While these are effective in identifying whether the solution is correct or not, this will not give an indication to how similar the student's solution is to the correct solution.
+
+In this paper we come up with a method that will try to answer the above question.
+
+\section{Definitions}
+
+\subsection*{Symbolic Testing}
+Symbolic testing is the one of the program analysis technique used for proving program correctness. This technique executes the programs using symbolic values instead of concrete input data and represents the program variables as symbolic expressions. Therefore, we are able to represent the output of the program as a function of symbolic values. The most widely used application of symbolic testing is the automated test case generation for proving program correctness.
+
+\subsection*{Program Dependence Graph:} Program dependence graph (PDG) is a graphical representation of the source code of a program. Basic statements, like variable declarations, assignments, and procedure calls, are represented by program vertices in PDG’s. The data and control
+dependencies between statements are represented by edges between program vertices
+in PDG’s.\\
+
+\subsection*{Graph Isomorphism}
+A graph can have the different form which contains the same number of vertices, edges and vertices are connected in the same way are said to be isomorphic graphs. 
+
+Formally, the graphs $G$ and $G'$ are isomorphic, then there exists a function $F: V(G) \to V(G')$ such that
+\begin{enumerate}[i.]
+  \item $f$ is a bijection.
+  \item $f$ preserves adjacency of vertices. i.e. if the $(u,v) \in E(G)$ then $(f(u),f(v)) \in E(G')$
+\end{enumerate}
+
+\subsubsection*{$\gamma$ Isomorphism}
+A graph $G$ is $\gamma$-isomorphic to $G^\prime$ if there exists a subgraph $S \subseteq G$ such that $S$ is
+subgraph isomorphic to $G^\prime$ , and $\|S\| \geq \gamma \|G\|$, $\gamma \in$ (0,1). $\gamma$ is said to be the mature rate of isomorphic subgraphs. Initial $\gamma$ is set based on a belief on how much the subgraphs would be isomorphic. Value of $\gamma$ helps in pruning the search space for isomorphism. In other words, value of $\gamma$ would limit the number or vertices which would be subgraph isomorphic to the other graph.\\
+
+\section{Proposed Method}
+
+\subsection{Gold Standard Solutions:}
+    In this module we separate the students' solution into Correct and Incorrect submissions.\\
+    We are initially given all the students' solutions and one reference solution. Using the reference solution we automatically generate a set of test-cases that covers all the corner-case of the assignment and test it against the students' solution.  The solutions that passes all these test-cases are considered correct and the others are considered incorrect.
+    
+    We generate test-cases using Symbolic Testing \cite{Symbolic} tools like \textit{CREST}, \textit{API Sanity Check}, etc...
+
+\subsection{Similarity Measure:}
+
+\input{3_Similarity}
+
+\subsection{Clustering:}
+
+\input{4_Clustering}
+
+\subsection{Marking Scheme:}
+    
+\input{5_Marking}
+
+    
+\printbibliography
+
+
+\end{document}

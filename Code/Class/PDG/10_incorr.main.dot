@@ -1,0 +1,59 @@
+digraph G {
+  rankdir=TB;
+  node [style="filled", ];
+  2 [label="Decl a", fillcolor="#FFEFD5", shape=box, ];
+  3 [label="Decl b", fillcolor="#FFEFD5", shape=box, ];
+  4 [label="Decl n", fillcolor="#FFEFD5", shape=box, ];
+  5 [label="Decl i", fillcolor="#FFEFD5", shape=box, ];
+  6 [label="Decl x", fillcolor="#FFEFD5", shape=box, ];
+  7 [label="Decl ch1", fillcolor="#FFEFD5", shape=box, ];
+  8 [label="Decl w", fillcolor="#FFEFD5", shape=box, ];
+  9 [label="Decl __retres", fillcolor="#FFEFD5", shape=box, ];
+  10 [label="a = 0;", fillcolor="#CCCCCC", shape=box, ];
+  11 [label="b = 0;", fillcolor="#CCCCCC", shape=box, ];
+  13 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  14 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  15 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  16 [label="i = 0;", fillcolor="#CCCCCC", shape=box, ];
+  17 [label="while", fillcolor="#CCCCCC", shape=doublecircle, ];
+  18 [label="i < n", fillcolor="#CCCCCC", shape=diamond, ];
+  19 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  20 [label="(int)ch1[0] == 'a'", fillcolor="#CCCCCC", shape=diamond, ];
+  21 [label="a > b", fillcolor="#CCCCCC", shape=diamond, ];
+  22 [label="b > a", fillcolor="#CCCCCC", shape=diamond, ];
+  23 [label="break;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  24 [label="(int)w == 'a'", fillcolor="#CCCCCC", shape=diamond, ];
+  25 [label="(int)w == 'm'", fillcolor="#CCCCCC", shape=diamond, ];
+  26 [label="return __retres;", fillcolor="#CCCCCC", shape=box, ];
+  27 [label="OutRet", fillcolor="#90EE90", shape=box, ];
+  28 [label="In(ANYTHING(origin:Unknown))", fillcolor="#6495ED", shape=box, ];
+  
+  subgraph cluster_Call3 { label="Call3 : scanf(\"%d\",& n);";
+                           fillcolor="#B38B4D"; style="filled"; 15;14;13;
+     };
+  
+  edge [dir=back, ];
+  2 -> 10 [color="#000000", style="dotted", ];
+  3 -> 11 [color="#000000", style="dotted", ];
+  4 -> 14 [color="#0000FF", ];
+  10 -> 15 [color="#0000FF", ];
+  11 -> 15 [color="#0000FF", ];
+  13 -> 15 [color="#0000FF", ];
+  28 -> 15 [color="#0000FF", ];
+  5 -> 16 [color="#000000", style="dotted", ];
+  4 -> 18 [color="#0000FF", ];
+  5 -> 18 [color="#0000FF", ];
+  16 -> 18 [color="#0000FF", ];
+  7 -> 20 [color="#0000FF", ];
+  19 -> 20 [color="#000000", arrowtail=odot, ];
+  2 -> 21 [color="#0000FF", ];
+  3 -> 21 [color="#0000FF", ];
+  19 -> 21 [color="#000000", arrowtail=odot, ];
+  2 -> 22 [color="#0000FF", ];
+  3 -> 22 [color="#0000FF", ];
+  19 -> 22 [color="#000000", arrowtail=odot, ];
+  8 -> 24 [color="#0000FF", ];
+  8 -> 25 [color="#0000FF", ];
+  9 -> 26 [color="#0000FF", ];
+  
+  }

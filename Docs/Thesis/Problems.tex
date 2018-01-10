@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+%\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\usepackage{color}
+\usepackage{xcolor} %for more colours to use in hyperref
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linkcolor=forestgreen,
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+    }
+
+\title{Automated Evaluation of Programming Assignments \\ \vspace{0.5mm} \large\textit{Proposal}}
+\author{Rishabh Manoj}
+\date{September 26, 2017}
+
+\begin{document}
+
+\maketitle
+\section{Limitation}
+
+\begin{itemize}
+        \item \textbf{Frama-c:} \\
+                Array initialisation in programs leads to frama-c errors making it not produce PDG's so similarity measure becomes zero and can't evaluate clusters properly \\ \subitem Installing new version of frama-c might solve this.
+                
+        \item \textbf{Graph Isomorphism NP complete:}\\
+              Some graphs programs takes forever (\textgreater 2 minutes) to calculate, so similarity measure becomes zero \\ \subitem No idea what to do
+    
+        \item \textbf{Goto in frama-c:}\\
+              \textbf{Suspicion:} Goto in C program messing with frama-c pdg \\ \subitem Installing new version of frama-c might solve this    
+    
+        \item \textbf{Multi function program:}\\
+                    PDG generated for one function, measuring PDG \textbf{not equal to} measuring code similarity.\\
+                    \subitem Possible solution might be to piece together PDG to form SDG (system dependence fraph), no idea how to implement
+        \item \textbf{Problem with PathLAD algorithm:}            
+                Some graphs are getting ignored, failing, not sure why
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,61 @@
+digraph G {
+  rankdir=TB;
+  node [style="filled", ];
+  2 [label="Decl n", fillcolor="#FFEFD5", shape=box, ];
+  3 [label="Decl i", fillcolor="#FFEFD5", shape=box, ];
+  4 [label="Decl max", fillcolor="#FFEFD5", shape=box, ];
+  5 [label="Decl id", fillcolor="#FFEFD5", shape=box, ];
+  6 [label="Decl N", fillcolor="#FFEFD5", shape=box, ];
+  7 [label="Decl __lengthof_N", fillcolor="#FFEFD5", shape=box, ];
+  8 [label="Decl S", fillcolor="#FFEFD5", shape=box, ];
+  9 [label="Decl __lengthof_S", fillcolor="#FFEFD5", shape=box, ];
+  10 [label="Decl tmp", fillcolor="#FFEFD5", shape=box, ];
+  11 [label="Decl tmp_0", fillcolor="#FFEFD5", shape=box, ];
+  12 [label="Decl __retres", fillcolor="#FFEFD5", shape=box, ];
+  13 [label="max = (short)0;", fillcolor="#CCCCCC", shape=box, ];
+  15 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  16 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  17 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  18 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  19 [label=";", fillcolor="#CCCCCC", shape=box, ];
+  20 [label="__lengthof_N = (unsigned int)n;", fillcolor="#CCCCCC",
+      shape=box, ];
+  21 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  22 [label="while", fillcolor="#CCCCCC", shape=doublecircle, ];
+  23 [label="(int)i < (int)n", fillcolor="#CCCCCC", shape=diamond, ];
+  24 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  25 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  26 [label="tmp_0 + *(S + i) > (int)max", fillcolor="#CCCCCC",
+      shape=diamond, ];
+  27 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  28 [label="break;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  29 [label="return __retres;", fillcolor="#CCCCCC", shape=box, ];
+  30 [label="OutRet", fillcolor="#90EE90", shape=box, ];
+  31 [label="In(ANYTHING(origin:Unknown))", fillcolor="#6495ED", shape=box, ];
+  
+  subgraph cluster_Call17 { label="Call17 : scanf(\"%hd\",& n);";
+                            fillcolor="#B38B4D"; style="filled"; 17;16;15;
+     };
+  
+  edge [dir=back, ];
+  4 -> 13 [color="#000000", style="dotted", ];
+  2 -> 16 [color="#0000FF", ];
+  13 -> 17 [color="#0000FF", ];
+  15 -> 17 [color="#0000FF", ];
+  31 -> 17 [color="#0000FF", ];
+  18 -> 19 [color="#000000", arrowtail=odot, ];
+  2 -> 20 [color="#0000FF", ];
+  7 -> 20 [color="#000000", style="dotted", ];
+  18 -> 20 [color="#000000", arrowtail=odot, ];
+  2 -> 23 [color="#0000FF", ];
+  3 -> 23 [color="#0000FF", ];
+  24 -> 25 [color="#000000", arrowtail=odot, ];
+  3 -> 26 [color="#0000FF", ];
+  4 -> 26 [color="#0000FF", ];
+  8 -> 26 [color="#0000FF", ];
+  11 -> 26 [color="#0000FF", ];
+  24 -> 26 [color="#000000", arrowtail=odot, ];
+  24 -> 27 [color="#000000", arrowtail=odot, ];
+  12 -> 29 [color="#0000FF", ];
+  
+  }

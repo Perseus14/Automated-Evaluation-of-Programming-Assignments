@@ -1,0 +1,3 @@
+#!/usr/bin/python
+T=input()
+L=map(int,raw_input().split())

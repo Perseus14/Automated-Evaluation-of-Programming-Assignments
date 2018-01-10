@@ -1,0 +1,7 @@
+##Requirements Till Now
+	cflow to generate list of function calls #sudo apt-get install cflow
+	Frama-c to genrate DOT files
+	Dot Tools a python parser, converts DOT file to a graph (https://github.com/timtadh/dot_tools)
+	Using Networkx python package implement VF algorithm (subgraph isomorphism)
+	
+	

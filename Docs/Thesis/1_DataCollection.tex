@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+%\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\usepackage{color}
+\usepackage{xcolor} %for more colours to use in hyperref
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linkcolor=forestgreen,
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+    }
+
+\title{Automated Evaluation of Programming Assignments \\ \vspace{0.5mm} \large\textit{Data Collection}}
+\author{Rishabh Manoj}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\section{Dataset Collection}
+
+\textit{CodeForces} is a platform dedicated to competitive programming. It started nearly $8$ years ago which gives us a lot of programming problems and submissions to choose. The problems are divided into $5$ category $A,B,C,D$ and $E$ with $A$ being the simplest and $E$ being the hardest. CodeForces has recently released a set of \textit{API's} with which we can get access to their data. Using these \textit{API's} I have written a script to download all solutions (correct and incorrect) of a particular programming languages (eg: C,C$++$) for a problem. \href{https://github.com/Perseus14/Automated-Evaluation-of-Programming-Assignments/blob/master/Data/cf_script.py}{[script.py]}\\
+
+I have downloaded \textbf{C} and \textbf{C$++$} submissions that have been accepted by the online judge and submissions that failed some test-cases for problems in category $A$. I decided to keep the data-set simple (i.e) made sure that the solutions could be compiled and executed without any problems so I have not included submissions which had the  verdict's \textit{Time Limit Exceeded}, \textit{Runtime Error} or \textit{Compilation Error}. \href{https://github.com/Perseus14/Automated-Evaluation-of-Programming-Assignments/tree/master/Data/CodeForces}{[Data-set]}\\ 
+
+\textit{Summary:}
+\begin{itemize}
+    \item Downloaded submissions for $10$ problems in category $A$.
+    \item Total no. of submissions is $3300$.
+    \item An average of $300$ submissions with $100$ correct solutions and $200$ incorrect solutions per problem. 
+\end{itemize}
+
+\textit{Note: Most of the submissions are in C++ with a few minority in C. In future if more data is required, it can be easily obtained with the use of the script mentioned above.
+}\\
+
+Problem Links: \href{http://codeforces.com/contest/1/problem/A}{[Theatre Square]}, 
+\href{http://codeforces.com/contest/2/problem/A}{[Winner]},
+\href{http://codeforces.com/contest/3/problem/A}{[Shortest path of the king]}, 
+\href{http://codeforces.com/contest/4/problem/A}{[Watermelon]}, 
+\href{http://codeforces.com/contest/5/problem/A}{[Chat Server's Outgoing Traffic]}, 
+\href{http://codeforces.com/contest/6/problem/A}{[Triangle]}, 
+\href{http://codeforces.com/contest/7/problem/A}{[Kalevitch and Chess]}, 
+\href{http://codeforces.com/contest/8/problem/A}{[Train and Peter]}, 
+\href{http://codeforces.com/contest/9/problem/A}{[Die Roll]}, 
+\href{http://codeforces.com/contest/10/problem/A}{[Power Consumption Calculation]}
+\end{document}
