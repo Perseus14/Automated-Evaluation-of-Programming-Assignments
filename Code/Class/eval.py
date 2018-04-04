@@ -2,7 +2,9 @@ import os
 import sys
 import glob
 import pickle
+import numpy as np
 from random import randint
+from nltk import agreement
 
 from phases.similarity import Similarity
 from phases.cluster import Cluster
@@ -71,7 +73,7 @@ def printSimilarityGraph(sim_list):
 	plt.title("Similarity Measurement Graph") 
 	plt.show()
 	
-def printClusterGraph(cluster_set,name):
+def printClusterGraph(cluster_set, name):
 	import matplotlib.pyplot as plt
 	import networkx as nx
 	edge_list = []
@@ -100,7 +102,98 @@ def printClusterGraph(cluster_set,name):
 	plt.draw()
 	plt.title("Graph Clusters using " + name + " clustering")
 	plt.show()
+	
+def cluster_purity(cluster_set, corr_files, filename):
+	pred_cluster = []
+	act_cluster = []
+	for sol in corr_files:
+		for cluster_id in xrange(len(cluster_set)):	
+			if(sol in cluster_set[cluster_id]):
+				pred_cluster.append(cluster_id)
+				break
+	cluster_dict = {}
+	with open(filename,'r') as fin:
+		for line in fin.readlines():
+			line = line.strip('\n')
+			[sol, cluster_val] = line.split()
+			cluster_dict[sol] = int(cluster_val)
+	
+	for sol in corr_files:
+		act_cluster.append(cluster_dict[sol.split('/')[-1]])
+		
+	##Calculate purity
+	clusters = np.array(pred_cluster)
+	classes = np.array(act_cluster)
+	A = np.c_[(clusters,classes)]
 
+	n_accurate = 0.
+
+	for j in np.unique(A[:,0]):
+		z = A[A[:,0] == j, 1]
+		x = np.argmax(np.bincount(z))
+		n_accurate += len(z[z == x])
+
+	purity = n_accurate / A.shape[0]
+	print "Purity of clusters: ", purity
+	return purity
+	
+def rater_score(filename, marks, corr_files):
+	human_raters = [] 
+	auto_rate = []
+	marks_dict = {}
+	for (sol,mark) in marks:
+		marks_dict[sol] = mark
+		
+	cluster_dict = {}
+	with open(filename,'r') as fin:
+		for line in fin.readlines():
+			line = line.strip('\n')
+			vals = line.split()
+			sol = vals[0]
+			cluster_vals = vals[1:] 
+			cluster_dict[sol] = map(int,cluster_vals)
+			n_humans = len(cluster_vals)
+	
+	for x in xrange(n_humans):
+		human_raters.append([])
+			
+	for sol in corr_files:
+		vals = cluster_dict[sol.split('/')[-1]]
+		for x in xrange(n_humans):
+			human_raters[x].append(vals[x])
+		auto_rate.append(marks_dict[sol])	
+	
+	##Calculating Score
+	tasks_humans = [[[j,str(i),str(human_raters[j][i])] for i in range(len(human_raters[0]))] for j in xrange(len(human_raters))]
+
+	tasks_humans = [item for sublist in tasks_humans for item in sublist]
+
+	#print tasks_humans
+
+	total_raters = human_raters + [auto_rate]
+	tasks_auto = [[[j,str(i),str(total_raters[j][i])] for i in range(len(total_raters[0]))] for j in xrange(len(total_raters))]
+
+	tasks_auto = [item for sublist in tasks_auto for item in sublist]
+
+
+	print "\n\nAgreement Rate with only human ratings\n"
+
+	ratingtask_humans = agreement.AnnotationTask(data=tasks_humans)
+	print("kappa " +str(ratingtask_humans.kappa()))
+	print("fleiss " + str(ratingtask_humans.multi_kappa()))
+	print("alpha " +str(ratingtask_humans.alpha()))
+	print("scotts " + str(ratingtask_humans.pi()))
+	
+	
+	print "\n\nAgreement Rate with our ratings included \n"
+	
+	ratingtask_auto = agreement.AnnotationTask(data=tasks_auto)
+	print("kappa " +str(ratingtask_auto.kappa()))
+	print("fleiss " + str(ratingtask_auto.multi_kappa()))
+	print("alpha " +str(ratingtask_auto.alpha()))
+	print("scotts " + str(ratingtask_auto.pi()))
+	
+				
 def similarityPhase(corrFileList):
 	S = Similarity("_corr")
 	similarity_measure_list = S.getSimilarityFromFilesList(corrFileList)	
@@ -110,11 +203,12 @@ def clusteringPhase(similarity_measure_list):
 	C = Cluster()
 	cluster_set_louv = C.cluster_louvian(similarity_measure_list)
 	cluster_set_ipca = C.cluster_ipca(similarity_measure_list)
+	cluster_set_spectral = C.cluster_spectral(similarity_measure_list, len(cluster_set_louv))
 	#C.printCluster()
-	return cluster_set_louv, cluster_set_ipca
+	return cluster_set_louv, cluster_set_ipca, cluster_set_spectral 
 
 def markingPhase(cluster_set, incorrFileList):
-	M = Marking("_incorr")
+	M = Marking("mix")
 	cluster_set_rep = M.getSetRepresentative(cluster_set)
 	marks = M.grading(incorrFileList)
 	M.printMarks()
@@ -130,16 +224,30 @@ os.system("mv PDG/*.main.dot PDG/Main/")
 os.system("rm PDG/*.*.dot")
 os.system("mv PDG/Main/* PDG/")
 os.system("rm -rf PDG/Main")
+
 similarity_measure_list = similarityPhase(corr_files)
 
-printSimilarityGraph(similarity_measure_list)
+#printSimilarityGraph(similarity_measure_list)
 
-cluster_set_louvian, cluster_set_ipca = clusteringPhase(similarity_measure_list)
+cluster_set_louvian, cluster_set_ipca, cluster_set_spectral = clusteringPhase(similarity_measure_list)
 
-printClusterGraph(cluster_set_louvian,"Louvian")
-printClusterGraph(cluster_set_ipca,"IPCA")
+#printClusterGraph(cluster_set_louvian,"Louvian")
+
+#printClusterGraph(cluster_set_ipca,"IPCA")
+
 computePDG(False,incorr_files)
+
 marks = markingPhase(cluster_set_louvian, incorr_files)
+
+human_clustering_filepath = DATA_PATH + folder + '/clustering_human'
+human_marking_filepath = DATA_PATH + folder + '/marking_human'
+
+purity1 = cluster_purity(cluster_set_louvian, corr_files, human_clustering_filepath)
+
+purity2 = cluster_purity(cluster_set_spectral, corr_files, human_clustering_filepath)
+
+rater_score(human_marking_filepath, marks, incorr_files)
+
 '''
 with open("grades/"+folder+"_values.pickle","wb") as fin:
 	pickle.dump(similarity_measure_list,fin)

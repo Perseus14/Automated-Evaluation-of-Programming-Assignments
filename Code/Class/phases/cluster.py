@@ -2,6 +2,9 @@ import community
 import networkx as nx
 from itertools import combinations
 from collections import defaultdict
+import numpy as np
+from sklearn.cluster import SpectralClustering
+from sklearn import metrics
 
 class Cluster:
 	def __init__(self):
@@ -105,8 +108,44 @@ class Cluster:
 				cluster_set.append(list(cluster))
 
 			if not unvisited: break	
+		#self.cluster_set = cluster_set	
 		return cluster_set
+	
+	def spectralClustering(self, similarity_measure_list, n_clusters=2):
+		sim_dict = {}
+		edge_set = set()
+		for (file1, file2, val) in similarity_measure_list:
+			sim_dict[(file1,file2)] = val
+			sim_dict[(file2,file1)] = val
+			edge_set.add(file1)
+			edge_set.add(file2)
+			
+		edge_list = list(edge_set)
+		affinity_matrix = []
+		for edge_id_x in xrange(len(edge_list)):
+			temp = []
+			for edge_id_y in xrange(len(edge_list)):
+				try:
+					temp.append(sim_dict[(edge_list[edge_id_x], edge_list[edge_id_y])])
+				except:
+					temp.append(0)	
+			affinity_matrix.append(temp)
+		affinity_matrix = np.array(affinity_matrix)
 		
+		sc = SpectralClustering(n_clusters, affinity='precomputed', n_init=100)
+		sc.fit(affinity_matrix)
+		labels = sc.labels_
+		n_cluster = len(set(labels))
+		cluster_set = []
+		for x in xrange(n_cluster):
+			cluster_set.append([])
+		
+		for x in xrange(len(labels)):
+			cluster_set[labels[x]].append(edge_list[x])
+		
+		#self.cluster_set = cluster_set			 
+		return cluster_set
+			
 	def printCluster(self):
 		for cluster_id in xrange(len(self.cluster_set)):
 			print "Cluster:",cluster_id,"\n", self.cluster_set[cluster_id], "\n"
@@ -116,3 +155,6 @@ class Cluster:
 		
 	def cluster_ipca(self, similarity_measure_list):
 		return self.ipca(similarity_measure_list)  #One clustering algo
+	
+	def cluster_spectral(self, similarity_measure_list, n_clusters=2):
+		return self.spectralClustering(similarity_measure_list, n_clusters=2)  #Another clustering algo	
