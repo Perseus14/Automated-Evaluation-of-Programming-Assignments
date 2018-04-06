@@ -18,7 +18,7 @@ def get_cfiles(folder):
 	incorr_files = glob.glob(DATA_PATH+folder+"/Incorrect/*.c")
 	temp_files = []
 	for files in corr_files:
-		os.system("gcc -std=c11 -o a.out " + files)
+		os.system("gcc -w -std=c11 -o a.out " + files + " -lm")
 		if os.path.isfile("a.out"):
 			temp_files.append(files)
 			os.system("rm a.out")
@@ -26,7 +26,7 @@ def get_cfiles(folder):
 
 	temp_files = []	
 	for files in incorr_files:
-		os.system("gcc -std=c11 -o a.out " + files)
+		os.system("gcc -w -std=c11 -o a.out " + files + " -lm")
 		if os.path.isfile("a.out"):
 			temp_files.append(files)
 			os.system("rm a.out")
@@ -134,7 +134,7 @@ def cluster_purity(cluster_set, corr_files, filename):
 		n_accurate += len(z[z == x])
 
 	purity = n_accurate / A.shape[0]
-	print "Purity of clusters: ", purity
+	print "\nPurity of clusters: ", purity
 	return purity
 	
 def rater_score(filename, marks, corr_files):
@@ -215,9 +215,15 @@ def markingPhase(cluster_set, incorrFileList):
 	return marks
 	
 folder = sys.argv[1]
+
+print("Compiling C solution programs.....................")
+
 corr_files, incorr_files = get_cfiles(folder)
 os.system("rm -rf PDG")
 os.system("mkdir PDG")
+
+print("Generating PDGs for correct solutions.....................")
+
 computePDG(True,corr_files)
 os.system("mkdir PDG/Main")
 os.system("mv PDG/*.main.dot PDG/Main/")
@@ -225,9 +231,13 @@ os.system("rm PDG/*.*.dot")
 os.system("mv PDG/Main/* PDG/")
 os.system("rm -rf PDG/Main")
 
+print("Calculating Similarity Measurements.....................")
+
 similarity_measure_list = similarityPhase(corr_files)
 
 #printSimilarityGraph(similarity_measure_list)
+
+print("Clustering the programs.....................")
 
 cluster_set_louvian, cluster_set_ipca, cluster_set_spectral = clusteringPhase(similarity_measure_list)
 
@@ -235,12 +245,16 @@ cluster_set_louvian, cluster_set_ipca, cluster_set_spectral = clusteringPhase(si
 
 #printClusterGraph(cluster_set_ipca,"IPCA")
 
+print("Generating PDGs for incorrect solutions.....................")
+
 computePDG(False,incorr_files)
+
+print("Grading the programs.....................")
 
 marks = markingPhase(cluster_set_louvian, incorr_files)
 
 human_clustering_filepath = DATA_PATH + folder + '/clustering_human'
-human_marking_filepath = DATA_PATH + folder + '/marking_human'
+human_marking_filepath = DATA_PATH + folder + '/marks'
 
 purity1 = cluster_purity(cluster_set_louvian, corr_files, human_clustering_filepath)
 
@@ -248,9 +262,3 @@ purity2 = cluster_purity(cluster_set_spectral, corr_files, human_clustering_file
 
 rater_score(human_marking_filepath, marks, incorr_files)
 
-'''
-with open("grades/"+folder+"_values.pickle","wb") as fin:
-	pickle.dump(similarity_measure_list,fin)
-	pickle.dump(cluster_set,fin)
-	pickle.dump(marks,fin)
-'''
