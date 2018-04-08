@@ -1,0 +1,21 @@
+#include<stdio.h>
+main()
+{
+    int i,j[1500],k,l,a,t=0;
+    scanf("%d",&a);
+    for(i=1;i<1000;i++)
+    {
+        j[i]=(i*(i+1))/2;
+    }
+    for(i=1;i<1000&&t==0;i++)
+    {
+        for(k=1;k<1000&&t==0;k++)
+        {
+            if(j[i]+j[k]==a)
+                {t=t+1;
+            printf("YES");}
+        }
+    }
+    if(t==0)
+        printf("NO");
+}

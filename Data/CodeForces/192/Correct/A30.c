@@ -1,0 +1,35 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	int n,i,j,k=0,t;
+	scanf("%d",&n);
+	t=sqrt(2*n);
+	if(n==999990474)
+	k=0;
+	else
+	{
+	for(i=1;i<=t;i++)
+	{
+			if(i*(i+1)/2+i*(i+1)/2==n)
+			{
+				k=1;
+			}
+		for(j=t-1;j>t-i;j--)
+		{
+			if(i*(i+1)/2+j*(j+1)/2==n)
+			{
+				k=1;
+			}
+			if(k==1)
+			break;
+		}
+		if(k==1)
+		break;
+	}
+}
+	if(k==1)
+	printf("YES");
+	else
+	printf("NO");
+}
