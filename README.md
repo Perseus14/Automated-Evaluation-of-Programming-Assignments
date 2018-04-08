@@ -44,5 +44,6 @@ _Contest ID_
 ## Execution
 
 ```
- python eval.py  _folder name_
+ python eval.py <folder-name>
+
 ```
