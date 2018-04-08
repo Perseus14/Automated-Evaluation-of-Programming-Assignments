@@ -6,7 +6,7 @@ This repo contains the code for the Automated-Evaluation-of-Programming-Assignme
 
 ### Requirements
 + os, sys, glob, pickle, random
-+ warnings, netwowrkx(1.11), igraph(0.7.1), dot_tools
++ warnings, netwowrkx(1.11), [igraph(0.7.1)](http://igraph.org/python/ "python-igraph"), [dot_tools](https://github.com/timtadh/dot_tools.git "Dot Parser Tool in Python")
 + community(python-louvain), itertools, collection
 + numpy, sklearn, nltk
 + matplotlib
