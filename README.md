@@ -29,8 +29,8 @@ Solutions will be downloaded in a CodeForces folder in the same directory in whi
 
 _Contest ID_  
    -  _Correct_  
-      -A1.c  
-      -A2.c  
+      - A1.c  
+      - A2.c  
    -  _Incorrect_  
       - A1.c  
       - A2.c 
