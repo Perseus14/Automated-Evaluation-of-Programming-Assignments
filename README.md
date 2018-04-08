@@ -27,6 +27,14 @@ Given a contest id, this script downloads all correct and incorrect  _Java_ solu
 
 Solutions will be downloaded in a CodeForces folder in the same directory in which the code is run.
 
+_Contest ID_  
+   -  _Correct_  
+      -A1.c  
+      -A2.c  
+   -  _Incorrect_  
+      - A1.c  
+      - A2.c 
+
 ### Requirements
 
 + urllib  
@@ -35,12 +43,6 @@ Solutions will be downloaded in a CodeForces folder in the same directory in whi
 
 ## Execution
 
-python eval.py <folder name of solution>
-
-Solution
-   - Correct
-      - 1.c
-      - 2.c
-   - Incorrect
-      - 1.c
-      - 2.cc
+```
+ python eval.py  _folder name_
+```
