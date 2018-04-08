@@ -4,7 +4,7 @@ This repo contains the code for the Automated-Evaluation-of-Programming-Assignme
 
 ## Installation
 
-###Requirements
+### Requirements
 + os, sys, glob, pickle, random
 + warnings, netwowrkx(1.11), igraph(0.7.1), dot_tools
 + community(python-louvain), itertools, collection
@@ -14,20 +14,20 @@ This repo contains the code for the Automated-Evaluation-of-Programming-Assignme
 
 A [script](../blob/master/Code/Class/script.sh) is included to download most of the packages, Boost needs to be separately installed.
 
-##DataSet Generation
+## DataSet Generation
 
 Dataset is downloaded from [CodeForces](codeforces.com "CodeForces"), a platform for competitive programming.
 
 Given a contest id, this script downloads all correct and incorrect  _Java_ solutions.
 
-###Execution
+### Execution
 ```
  python cf_script.py
 ```
 
 Solutions will be downloaded in a CodeForces folder in the same directory in which the code is run.
 
-###Requirements
+### Requirements
 
 + urllib  
 + json   
