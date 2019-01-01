@@ -10,9 +10,8 @@ This repo contains the code for the Automated-Evaluation-of-Programming-Assignme
 + community(python-louvain), itertools, collection
 + numpy, sklearn, nltk
 + matplotlib
-+ Boost Libraries with Threads (1.65.1) 
 
-A [script](../blob/master/Code/Class/script.sh) is included to download most of the packages, Boost needs to be separately installed.
+A [script](./Code/Class/script.sh) is included to download most of the packages
 
 ## DataSet Generation
 
